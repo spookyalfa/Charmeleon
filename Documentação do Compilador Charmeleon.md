@@ -2,13 +2,13 @@
 
 ## 1. Introdução
 
-Este documento detalha o design, a implementação e as funcionalidades do compilador para a linguagem de programação Charmeleon. Desenvolvido com foco em simplicidade, intuitividade e velocidade, o Charmeleon é uma linguagem projetada para desenvolvimento web, combinando características de Python e C#. O compilador aqui descrito é uma ferramenta essencial que transforma o código-fonte escrito em Charmeleon em código Python executável, incorporando otimizações e análises de segurança estática (SAST) para garantir a eficiência e a robustez das aplicações geradas.
+   Este documento detalha o design, a implementação e as funcionalidades do compilador para a linguagem de programação Charmeleon. Desenvolvido com foco em simplicidade, intuitividade e velocidade, o Charmeleon é uma linguagem projetada para desenvolvimento web, combinando características de Python e C#. O compilador aqui descrito é uma ferramenta essencial que transforma o código-fonte escrito em Charmeleon em código Python executável, incorporando otimizações e análises de segurança estática (SAST) para garantir a eficiência e a robustez das aplicações geradas.
 
-O processo de compilação do Charmeleon segue uma arquitetura modular, dividida em várias fases distintas: Análise Léxica, Análise Sintática (com construção da Árvore de Sintaxe Abstrata - AST), Análise Semântica, Geração de Código Intermediário (IR), Otimização de Código (com foco em Eliminação de Código Morto - DCE), Análise de Segurança Estática (SAST) e Geração de Código Alvo (transpilação para Python). Cada uma dessas fases contribui para a transformação progressiva do código-fonte, desde sua representação textual até um programa funcional em Python.
+   O processo de compilação do Charmeleon segue uma arquitetura modular, dividida em várias fases distintas: Análise Léxica, Análise Sintática (com construção da Árvore de Sintaxe Abstrata - AST), Análise Semântica, Geração de Código Intermediário (IR), Otimização de Código (com foco em Eliminação de Código Morto - DCE), Análise de Segurança Estática (SAST) e Geração de Código Alvo (transpilação para Python). Cada uma dessas fases contribui para a transformação progressiva do código-fonte, desde sua representação textual até um programa funcional em Python.
 
-O objetivo principal deste compilador é fornecer uma base sólida para o desenvolvimento de aplicações web, aproveitando a sintaxe amigável do Charmeleon e a vasta ecossistema do Python. Além disso, a inclusão de funcionalidades de SAST visa identificar e mitigar potenciais vulnerabilidades de segurança desde as etapas iniciais do desenvolvimento, promovendo a criação de software mais seguro. A otimização de código, por sua vez, garante que o código gerado seja performático, removendo instruções desnecessárias e otimizando o fluxo de execução.
+   O objetivo principal deste compilador é fornecer uma base sólida para o desenvolvimento de aplicações web, aproveitando a sintaxe amigável do Charmeleon e a vasta ecossistema do Python. Além disso, a inclusão de funcionalidades de SAST visa identificar e mitigar potenciais vulnerabilidades de segurança desde as etapas iniciais do desenvolvimento, promovendo a criação de software mais seguro. A otimização de código, por sua vez, garante que o código gerado seja performático, removendo instruções desnecessárias e otimizando o fluxo de execução.
 
-Este documento servirá como um guia abrangente para desenvolvedores, pesquisadores e entusiastas que desejam entender o funcionamento interno do compilador Charmeleon, suas capacidades e como ele pode ser utilizado para construir aplicações web eficientes e seguras.
+   Este documento servirá como um guia abrangente para desenvolvedores, pesquisadores e entusiastas que desejam entender o funcionamento interno do compilador Charmeleon, suas capacidades e como ele pode ser utilizado para construir aplicações web eficientes e seguras.
 
 
 
@@ -16,11 +16,11 @@ Este documento servirá como um guia abrangente para desenvolvedores, pesquisado
 
 ## 2. Análise e Detalhamento dos Requisitos do Projeto
 
-A fase inicial do desenvolvimento do compilador Charmeleon envolveu uma análise aprofundada dos requisitos do projeto, definindo o escopo, as funcionalidades essenciais e as características desejadas para a linguagem e seu compilador. Esta etapa foi crucial para estabelecer uma base sólida para as fases subsequentes de design e implementação.
+   A fase inicial do desenvolvimento do compilador Charmeleon envolveu uma análise aprofundada dos requisitos do projeto, definindo o escopo, as funcionalidades essenciais e as características desejadas para a linguagem e seu compilador. 
 
 ### 2.1. Definição da Linguagem Charmeleon
 
-O primeiro e mais fundamental requisito foi a concepção da própria linguagem Charmeleon. Foi decidido que a linguagem deveria ser:
+   O primeiro e mais fundamental requisito foi a concepção da própria linguagem Charmeleon. Foi decidido que a linguagem deveria ser:
 
 *   **Simples e Intuitiva:** Inspirada na facilidade de uso do Python, com uma sintaxe clara e de fácil aprendizado.
 *   **Rápida:** Embora o compilador gere código Python, a intenção é que a linguagem Charmeleon em si permita a escrita de código que, após a transpilação e otimização, seja performático.
@@ -30,7 +30,7 @@ O primeiro e mais fundamental requisito foi a concepção da própria linguagem 
 
 ### 2.2. Funcionalidades do Compilador
 
-Com base na definição da linguagem, os seguintes requisitos funcionais foram estabelecidos para o compilador:
+   Com base na definição da linguagem, os seguintes requisitos funcionais foram estabelecidos para o compilador:
 
 *   **Análise Léxica:** Capacidade de ler o código-fonte Charmeleon e convertê-lo em uma sequência de tokens, identificando palavras-chave, identificadores, literais, operadores e delimitadores.
 *   **Análise Sintática:** Construção de uma Árvore de Sintaxe Abstrata (AST) a partir da sequência de tokens, verificando a conformidade com a gramática da linguagem. A AST serve como uma representação estruturada do programa, facilitando as fases posteriores.
@@ -45,23 +45,26 @@ Com base na definição da linguagem, os seguintes requisitos funcionais foram e
 
 ### 2.3. Ferramentas e Tecnologias
 
-Para a implementação do compilador, foi definida a utilização da linguagem Python, aproveitando sua flexibilidade e o rico ecossistema de bibliotecas para desenvolvimento de ferramentas de processamento de texto e análise de dados. A escolha do Python como linguagem de implementação e como alvo de transpilação simplifica o processo de desenvolvimento e depuração.
+   Para a implementação do compilador, foi definida a utilização da linguagem Python, aproveitando sua flexibilidade e o rico ecossistema de bibliotecas para desenvolvimento de ferramentas de processamento de texto e análise de dados. 
+   A escolha do Python como linguagem de implementação e como alvo de transpilação simplifica o processo de desenvolvimento e depuração.
 
-Esta fase de detalhamento dos requisitos serviu como um mapa para todo o projeto, garantindo que todas as partes interessadas tivessem uma compreensão clara dos objetivos e das funcionalidades a serem entregues. A iteração contínua com o solicitante foi fundamental para refinar esses requisitos e tomar decisões cruciais, como a escolha dos delimitadores de bloco e a exclusão inicial de recursos avançados.
+   Esta fase de detalhamento dos requisitos serviu como um mapa para todo o projeto, garantindo que todas as partes interessadas tivessem uma compreensão clara dos objetivos e das funcionalidades a serem entregues.
+   A iteração contínua com o solicitante foi fundamental para refinar esses requisitos e tomar decisões cruciais, como a escolha dos delimitadores de bloco e a exclusão inicial de recursos avançados.
 
 
 
 ## 3. Idealização e Design da Linguagem de Programação
 
-A concepção da linguagem Charmeleon foi um passo fundamental no desenvolvimento deste compilador. A idealização buscou criar uma linguagem que fosse ao mesmo tempo poderosa para o desenvolvimento web e acessível para programadores, combinando as melhores práticas de linguagens estabelecidas como Python e C#. O nome "Charmeleon" foi escolhido para refletir essa dualidade: a simplicidade e adaptabilidade (como um camaleão) e a capacidade de ser "charmosa" em sua sintaxe e uso, além de evocar a ideia de transformação (de código Charmeleon para Python).
+   A concepção da linguagem Charmeleon foi um passo fundamental no desenvolvimento deste compilador. A idealização buscou criar uma linguagem que fosse ao mesmo tempo poderosa para o desenvolvimento web e acessível para programadores, combinando as melhores práticas de linguagens estabelecidas como Python e C#. O nome "Charmeleon" foi escolhido para refletir essa dualidade: a simplicidade e adaptabilidade (como um camaleão) e a capacidade de ser "charmosa" em sua sintaxe e uso, além de evocar a ideia de transformação.
 
-### 3.1. Filosofia e Propósito
+### 3.1. Filosofia e Propósito - De código Charmeleon para Python
 
-A filosofia central do Charmeleon é a de oferecer uma experiência de codificação que priorize a clareza e a produtividade. Embora o foco seja o desenvolvimento web, a linguagem foi projetada com uma base genérica que permite sua expansão para outras áreas no futuro. A rapidez, tanto na escrita do código quanto na execução do programa compilado, é um pilar dessa filosofia. A intenção é que os desenvolvedores possam expressar suas ideias de forma concisa, e que o compilador se encarregue de gerar um código eficiente.
+   A filosofia central do Charmeleon é a de oferecer uma experiência de codificação que priorize a clareza e a produtividade. Embora o foco seja o desenvolvimento web, a linguagem foi projetada com uma base genérica que permite sua expansão para outras áreas no futuro. A rapidez, tanto na escrita do código quanto na execução do programa compilado, é um pilar dessa filosofia.
+   A intenção é que os desenvolvedores possam expressar suas ideias de forma concisa, e que o compilador se encarregue de gerar um código eficiente.
 
 ### 3.2. Sintaxe e Estrutura
 
-As decisões sintáticas foram tomadas com base na familiaridade e na legibilidade:
+   As decisões sintáticas foram tomadas com base na familiaridade e na legibilidade:
 
 *   **Delimitadores de Bloco: Chaves `{}`.** Diferentemente do Python, que utiliza indentação para definir blocos de código, o Charmeleon adota as chaves `{}` para essa finalidade, similar ao C#, Java e JavaScript. Essa escolha proporciona uma delimitação visual explícita dos blocos de código, o que pode ser preferível para desenvolvedores acostumados com linguagens da família C. Exemplos incluem blocos de funções, condicionais (`if-else`) e laços de repetição (`for`, `while`).
 
@@ -116,22 +119,22 @@ As decisões sintáticas foram tomadas com base na familiaridade e na legibilida
 
 *   **Comentários:** Suporte a comentários de linha única (`//`) e de múltiplas linhas (`/* ... */`).
 
-### 3.3. Recursos Atualmente Excluídos (para Simplicidade Inicial)
+### 3.3. Recursos Atualmente Excluídos (Simplicidade Inicial)
 
-Para manter o escopo do projeto gerenciável e focar na construção de um compilador funcional, algumas funcionalidades comuns em linguagens modernas foram intencionalmente excluídas nesta fase inicial de design:
+   Para manter o escopo do projeto gerenciável e focar na construção de um compilador funcional, algumas funcionalidades comuns em linguagens modernas foram intencionalmente excluídas nesta fase inicial de design:
 
 *   **Programação Orientada a Objetos (Classes, Herança, Polimorfismo):** Não há suporte nativo para classes ou conceitos de POO. A linguagem é procedural por natureza nesta versão.
 *   **Módulos e Importação:** Não há um sistema formal de módulos ou pacotes para organizar e reutilizar código entre arquivos. O compilador assume um único arquivo de entrada.
 *   **Tratamento de Exceções (`try-catch`):** Mecanismos para tratamento de erros e exceções não foram implementados.
 *   **Tipos de Dados Complexos:** A linguagem suporta tipos básicos como `int`, `float`, `bool` e `string`. Não há tipos de dados mais complexos como arrays, listas, dicionários ou estruturas definidas pelo usuário.
 
-Essas exclusões simplificaram significativamente a complexidade do analisador léxico, sintático e semântico, permitindo que o foco fosse na construção de um pipeline de compilação robusto para as funcionalidades essenciais. Futuras versões da linguagem e do compilador podem incorporar esses recursos para aumentar sua expressividade e poder.
+   Essas exclusões simplificaram significativamente a complexidade do analisador léxico, sintático e semântico, permitindo que o foco fosse na construção de um pipeline de compilação robusto para as funcionalidades essenciais. Futuras versões da linguagem e do compilador podem incorporar esses recursos para aumentar sua expressividade e poder.
 
 
 
 ## 4. Análise Léxica
 
-A primeira fase do processo de compilação do Charmeleon é a Análise Léxica, realizada pelo componente `Lexer`. O objetivo principal desta fase é ler o código-fonte da linguagem Charmeleon, caractere por caractere, e agrupá-los em unidades significativas chamadas **tokens**. Cada token representa uma construção atômica da linguagem, como palavras-chave, identificadores, operadores, literais (números e strings) e delimitadores.
+   A primeira fase do processo de compilação do Charmeleon é a Análise Léxica, realizada pelo componente `Lexer`. O objetivo principal desta fase é ler o código-fonte da linguagem Charmeleon, caractere por caractere, e agrupá-los em unidades significativas chamadas **tokens**. Cada token representa uma construção atômica da linguagem, como palavras-chave, identificadores, operadores, literais (números e strings) e delimitadores.
 
 ### 4.1. Funcionamento do Lexer
 
@@ -168,23 +171,27 @@ O `Lexer` produz uma lista de dicionários, onde cada dicionário representa um 
 ]
 ```
 
-Esta sequência de tokens é então passada para a próxima fase do compilador: a Análise Sintática. A robustez do lexer é crucial, pois quaisquer erros ou falhas na tokenização podem propagar-se e causar problemas nas fases subsequentes do processo de compilação. O lexer do Charmeleon foi projetado para ser resiliente a variações de espaços e comentários, e para corretamente identificar literais de string complexos, incluindo aqueles com aspas escapadas ou mistas.
+   Esta sequência de tokens é então passada para a próxima fase do compilador: a Análise Sintática. A robustez do lexer é crucial, pois quaisquer erros ou falhas na tokenização podem propagar-se e causar problemas nas fases subsequentes do processo de compilação.
+   O lexer do Charmeleon foi projetado para ser resiliente a variações de espaços e comentários, e para corretamente identificar literais de string complexos, incluindo aqueles com aspas escapadas ou mistas.
 
 
 
 ## 5. Análise Sintática e Árvore de Sintaxe Abstrata (AST)
 
-Após a Análise Léxica, a sequência de tokens gerada é passada para o **Analisador Sintático** (ou **Parser**). O objetivo desta fase é verificar se a sequência de tokens segue as regras gramaticais da linguagem Charmeleon e, em caso afirmativo, construir uma representação hierárquica do código-fonte chamada **Árvore de Sintaxe Abstrata (AST)**. A AST é uma estrutura de dados em árvore que representa a estrutura sintática do programa, omitindo detalhes irrelevantes como delimitadores e espaços em branco, e focando nas relações entre as construções do código.
+   Após a Análise Léxica, a sequência de tokens gerada é passada para o **Analisador Sintático** (ou **Parser**). 
+   
+   O objetivo desta fase é verificar se a sequência de tokens segue as regras gramaticais da linguagem Charmeleon e, em caso afirmativo, construir uma representação hierárquica do código-fonte chamada **Árvore de Sintaxe Abstrata (AST)**. A AST é uma estrutura de dados em árvore que representa a estrutura sintática do programa, omitindo detalhes irrelevantes como delimitadores e espaços em branco, e focando nas relações entre as construções do código.
 
 ### 5.1. Funcionamento do Parser
 
-O parser do Charmeleon é um analisador sintático descendente recursivo. Ele percorre a lista de tokens e tenta aplicar as regras de produção da gramática da linguagem. Cada regra de produção corresponde a uma função no parser que tenta reconhecer uma construção específica da linguagem (como uma declaração de função, uma expressão, um laço de repetição, etc.). Se a sequência de tokens corresponde à regra, um nó da AST é criado para representar essa construção, e o parser continua a analisar os tokens restantes. Se a sequência não corresponde a nenhuma regra válida, um erro de sintaxe é lançado.
+   Ele percorre a lista de tokens e tenta aplicar as regras de produção da gramática da linguagem. Cada regra de produção corresponde a uma função no parser que tenta reconhecer uma construção específica da linguagem (como uma declaração de função, uma expressão, um laço de repetição, etc.). Se a sequência de tokens corresponde à regra, um nó da AST é criado para representar essa construção, e o parser continua a analisar os tokens restantes. Se a sequência não corresponde a nenhuma regra válida, um erro de sintaxe é lançado.
+      O parser do Charmeleon é um analisador sintático descendente recursivo. 
 
 **Componente:** `parser.py`
 
 ### 5.2. Estrutura da AST
 
-A AST é composta por nós (`ASTNode`), onde cada nó representa uma parte do código. Cada `ASTNode` possui:
+   A AST é composta por nós (`ASTNode`), onde cada nó representa uma parte do código. Cada `ASTNode` possui:
 
 *   **`type`:** O tipo do nó, que descreve a construção da linguagem que ele representa (e.g., `"FunctionDeclaration"`, `"IfStatement"`, `"BinaryExpression"`).
 *   **`value`:** Um valor associado ao nó, como o nome de uma variável, o valor de um literal numérico, ou o operador em uma expressão binária.
@@ -193,7 +200,7 @@ A AST é composta por nós (`ASTNode`), onde cada nó representa uma parte do c�
 
 **Exemplo de AST:**
 
-Para o seguinte código Charmeleon:
+   Para o seguinte código Charmeleon:
 
 ```charmeleon
 func main() {
@@ -204,7 +211,7 @@ func main() {
 }
 ```
 
-O parser geraria uma AST com a seguinte estrutura (simplificada):
+   O parser geraria uma AST com a seguinte estrutura (simplificada):
 
 ```
 - Program
@@ -225,7 +232,7 @@ O parser geraria uma AST com a seguinte estrutura (simplificada):
 
 ### 5.3. Gramática da Linguagem (Simplificada)
 
-A seguir, uma visão geral da gramática que o parser implementa:
+   Uma visão geral da gramática que o parser implementa:
 
 *   `program ::= (function_declaration)*`
 *   `function_declaration ::= 'func' IDENTIFIER '(' parameter_list ')' ('->' type)? '{' block '}'`
@@ -242,26 +249,26 @@ A seguir, uma visão geral da gramática que o parser implementa:
 *   `term ::= factor (('*' | '/') factor)*`
 *   `factor ::= NUMBER | STRING | IDENTIFIER | '(' expression ')'`
 
-A AST gerada nesta fase é a entrada para a Análise Semântica, que verificará a correção lógica do programa e enriquecerá a AST com informações de tipo e informações de tipo e tipo.
+   A AST gerada nesta fase é a entrada para a Análise Semântica, que verificará a correção lógica do programa e enriquecerá a AST com informações de tipo e informações de tipo e tipo.
 
 
 
 ## 6. Análise Semântica
 
-A Análise Semântica complementa a análise sintática verificando propriedades que não podem ser checadas apenas pela gramática. Nesta fase, o compilador Charmeleon constrói e consulta uma ou mais tabelas de símbolos para validar declarações, usos e tipos básicos das entidades do programa. O escopo é gerenciado de forma hierárquica: a declaração de uma função cria um novo escopo; laços como `for` e `while` também introduzem escopos locais no gerador de IR para fins de resolução de identificadores durante a geração de código intermediário. Isso garante que variáveis declaradas dentro de um bloco não “vazem” para escopos externos, refletindo práticas comuns de linguagens com blocos delimitados por chaves.
+   A Análise Semântica complementa a análise sintática verificando propriedades que não podem ser checadas apenas pela gramática. Nesta fase, o compilador Charmeleon constrói e consulta uma ou mais tabelas de símbolos para validar declarações, usos e tipos básicos das entidades do programa. O escopo é gerenciado de forma hierárquica: a declaração de uma função cria um novo escopo; laços como `for` e `while` também introduzem escopos locais no gerador de IR para fins de resolução de identificadores durante a geração de código intermediário. Isso garante que variáveis declaradas dentro de um bloco não “vazem” para escopos externos, refletindo práticas comuns de linguagens com blocos delimitados por chaves.
 
-A verificação semântica atual contempla:
+   A verificação semântica atual contempla:
 
 - Presença de declarações de variáveis antes do uso, por escopo.
 - Registro de tipo básico das variáveis (`int`, `float`, `bool`, `string`) quando disponível; quando não há anotação, o tipo é marcado como desconhecido a nível do analisador, mas ainda assim o identificador é válido para uso. O pipeline atual não impõe coerção de tipos em tempo de compilação, mantendo o comportamento semelhante a linguagens de tipagem dinâmica durante a geração de Python.
 - Validação estrutural de funções: nome, parâmetros (com tipos opcionais) e corpo.
 
-Esse desenho minimiza falsos positivos e facilita futuras extensões, como inferência de tipos, verificação de conversões e checagens de fluxo de dados.
+Uma observação: Esse desenho minimiza falsos positivos e facilita futuras extensões, como inferência de tipos, verificação de conversões e checagens de fluxo de dados.
 
 
 ## 7. Geração de Código Intermediário (IR)
 
-A representação intermediária (IR) é um conjunto linear de instruções de três endereços que descrevem o programa de forma mais próxima a uma máquina abstrata, porém independente de plataforma. O IR do Charmeleon utiliza instruções simples, fáceis de analisar e transformar, permitindo otimizações e posterior geração de código alvo com relativa facilidade. O formato adotado inclui rótulos e saltos explícitos, que viabilizam a representação de estruturas de controle como condicionais e laços.
+   A representação intermediária (IR) é um conjunto linear de instruções de três endereços que descrevem o programa de forma mais próxima a uma máquina abstrata, porém independente de plataforma. O IR do Charmeleon utiliza instruções simples, fáceis de analisar e transformar, permitindo otimizações e posterior geração de código alvo com relativa facilidade. O formato adotado inclui rótulos e saltos explícitos, que viabilizam a representação de estruturas de controle como condicionais e laços.
 
 Conjunto de instruções IR atualmente suportado:
 
@@ -274,25 +281,25 @@ Conjunto de instruções IR atualmente suportado:
 - `PRINT <expr>`: Emissão de saída padrão, mantida até o código alvo.
 - `RETURN <expr>`: Retorno da função.
 
-Padrões estruturais:
+   Padrões estruturais:
 
 - If/Else: Traduzido como `IF_FALSE cond GOTO L_else; …; GOTO L_end; L_else: …; L_end:`.
 - While: Representado como `L_start: IF_FALSE cond GOTO L_end; corpo; GOTO L_start; L_end:`.
 - For (estilo C): Expandido em init; `L_start:`; `IF_FALSE cond GOTO L_end;` corpo; update; `GOTO L_start; L_end:`.
 
-Essa forma facilita tanto a otimização (por exemplo, eliminação de código morto) quanto a reestruturação para Python na etapa final.
+   Essa forma facilita tanto a otimização (por exemplo, eliminação de código morto) quanto a reestruturação para Python na etapa final.
 
 
 
 ## 8. Otimização de Código: Eliminação de Código Morto (DCE)
 
-A fase de otimização de código é crucial para melhorar a eficiência e o desempenho do programa gerado. No compilador Charmeleon, a otimização implementada é a **Eliminação de Código Morto (Dead Code Elimination - DCE)**. O código morto refere-se a instruções que produzem resultados que nunca são usados posteriormente no programa, ou a blocos de código que nunca podem ser alcançados durante a execução. A remoção dessas instruções ou blocos resulta em um código final menor e mais rápido, sem alterar a funcionalidade do programa.
+   A fase de otimização de código é crucial para melhorar a eficiência e o desempenho do programa gerado. No compilador Charmeleon, a otimização implementada é a **Eliminação de Código Morto (Dead Code Elimination - DCE)**. O código morto refere-se a instruções que produzem resultados que nunca são usados posteriormente no programa, ou a blocos de código que nunca podem ser alcançados durante a execução. A remoção dessas instruções ou blocos resulta em um código final menor e mais rápido, sem alterar a funcionalidade do programa.
 
 ### 8.1. Funcionamento do Otimizador
 
-O otimizador (`optimizer.py`) opera sobre o Código Intermediário (IR) gerado. A abordagem utilizada para DCE é baseada na análise de *liveness* (vivacidade) de variáveis. Uma variável é considerada "viva" em um determinado ponto do programa se seu valor pode ser usado em algum ponto futuro da execução. Se uma variável não está viva após uma atribuição, essa atribuição pode ser considerada código morto e removida.
+   O otimizador (`optimizer.py`) opera sobre o Código Intermediário (IR) gerado. A abordagem utilizada para DCE é baseada na análise de *liveness* (vivacidade) de variáveis. Uma variável é considerada "viva" em um determinado ponto do programa se seu valor pode ser usado em algum ponto futuro da execução. Se uma variável não está viva após uma atribuição, essa atribuição pode ser considerada código morto e removida.
 
-O processo de DCE no compilador Charmeleon envolve as seguintes etapas:
+   O processo de DCE no compilador Charmeleon envolve as seguintes etapas:
 
 1.  **Análise de Definições e Usos (Def-Use Chains):** Para cada instrução no IR, o otimizador identifica quais variáveis são *definidas* (recebem um novo valor) e quais são *usadas* (seu valor é lido). Isso cria cadeias de dependência entre as instruções.
 2.  **Análise de Liveness Reversa:** O otimizador percorre o código IR de trás para frente, mantendo um conjunto de variáveis "vivas" em cada ponto. Quando uma instrução é processada:
@@ -315,7 +322,7 @@ func main() {
 }
 ```
 
-O IR gerado inicialmente pode ser algo como:
+   O IR gerado inicialmente pode ser algo como:
 
 ```
 FUNC main:
@@ -325,7 +332,7 @@ PRINT x
 END_FUNC main
 ```
 
-Após a aplicação da Eliminação de Código Morto, a instrução `ASSIGN y, 20` seria identificada como código morto, pois o valor atribuído a `y` nunca é lido ou utilizado posteriormente. O IR otimizado seria:
+   Após a aplicação da Eliminação de Código Morto, a instrução `ASSIGN y, 20` seria identificada como código morto, pois o valor atribuído a `y` nunca é lido ou utilizado posteriormente. O IR otimizado seria:
 
 ```
 FUNC main:
@@ -334,13 +341,13 @@ PRINT x
 END_FUNC main
 ```
 
-Esta otimização contribui diretamente para a geração de código Python mais limpo e eficiente, reduzindo o tamanho do programa e, consequentemente, seu tempo de execução. A abordagem conservadora garante que a otimização não introduza efeitos colaterais indesejados ou altere a semântica do programa original.
-
-
+   Esta otimização contribui diretamente para a geração de código Python mais limpo e eficiente, reduzindo o tamanho do programa e, consequentemente, seu tempo de execução. 
+   A abordagem conservadora garante que a otimização não introduza efeitos colaterais indesejados ou altere a semântica do programa original.
 
 ## 9. Análise de Segurança Estática (SAST)
 
-A segurança é um aspecto crítico no desenvolvimento de software. No compilador Charmeleon, a fase de Análise de Segurança Estática (SAST) foi integrada para identificar potenciais vulnerabilidades de segurança diretamente no código-fonte da linguagem Charmeleon, antes mesmo da execução. Esta abordagem permite que os desenvolvedores corrijam falhas de segurança precocemente no ciclo de desenvolvimento, reduzindo custos e riscos associados a vulnerabilidades em produção.
+ No compilador Charmeleon, a fase de Análise de Segurança Estática (SAST) foi integrada para identificar potenciais vulnerabilidades de segurança diretamente no código-fonte da linguagem Charmeleon, antes mesmo da execução. Esta abordagem permite que os desenvolvedores corrijam falhas de segurança precocemente no ciclo de desenvolvimento, reduzindo custos e riscos associados a vulnerabilidades em produção.
+   A segurança é um aspecto crítico no desenvolvimento de software.
 
 ### 9.1. Funcionamento do SAST Analyzer
 
@@ -350,7 +357,7 @@ O `SASTAnalyzer` opera sobre a Árvore de Sintaxe Abstrata (AST) gerada pelo par
 
 ### 9.2. Vulnerabilidades Detectadas
 
-Nesta versão inicial, o SAST do compilador Charmeleon foca em duas categorias principais de vulnerabilidades:
+   Nesta versão inicial, o SAST do compilador Charmeleon foca em duas categorias principais de vulnerabilidades:
 
 #### 9.2.1. Exposição de Dados Sensíveis
 
@@ -393,25 +400,25 @@ Quando uma vulnerabilidade é detectada, o `SASTAnalyzer` gera um relatório que
 *   **Mensagem:** Uma descrição concisa da vulnerabilidade e sua causa.
 *   **Nó AST:** Uma referência ao nó específico na AST onde a vulnerabilidade foi identificada, auxiliando na localização do problema no código-fonte original.
 
-O resultado da análise SAST é impresso no `stderr` do compilador, permitindo que os desenvolvedores visualizem os avisos de segurança sem interferir na saída do código Python gerado. Esta funcionalidade é um passo importante para promover a escrita de código mais seguro na linguagem Charmeleon.
+   O resultado da análise SAST é impresso no `stderr` do compilador, permitindo que os desenvolvedores visualizem os avisos de segurança sem interferir na saída do código Python gerado. Esta funcionalidade é um passo importante para promover a escrita de código mais seguro na linguagem Charmeleon.
 
 
 
 ## 10. Geração de Código Alvo (Transpilação para Python)
 
-A fase final do processo de compilação do Charmeleon é a **Geração de Código Alvo**, onde o Código Intermediário (IR) otimizado é transformado em código Python executável. Este processo é conhecido como transpilação, pois o código-fonte de uma linguagem (Charmeleon) é convertido para o código-fonte de outra linguagem (Python), mantendo o mesmo nível de abstração.
+   A fase final do processo de compilação do Charmeleon é a **Geração de Código Alvo**, onde o Código Intermediário (IR) otimizado é transformado em código Python executável. Este processo é conhecido como transpilação, pois o código-fonte de uma linguagem (Charmeleon) é convertido para o código-fonte de outra linguagem (Python), mantendo o mesmo nível de abstração.
 
 ### 10.1. Funcionamento do Code Generator
 
 O `CodeGenerator` (`code_generator.py`) recebe a lista de instruções IR (já otimizadas pela fase de DCE) e as traduz para a sintaxe Python correspondente. O desafio principal nesta fase é mapear as construções de baixo nível do IR (como `IF_FALSE` e `GOTO`) para as estruturas de controle de alto nível do Python (como `if/else` e `while` loops), mantendo a semântica original do programa.
 
-O gerador de código percorre as instruções IR e, para cada tipo de instrução, emite a linha de código Python equivalente. Para lidar com as estruturas de controle, o gerador de código emprega uma lógica que tenta identificar padrões de IR que correspondem a `if/else` e `while` loops. Por exemplo, uma sequência de `BIN_OP` (para a condição), `IF_FALSE` (para o salto condicional) e `GOTO` (para o salto incondicional) pode ser reconhecida e convertida em um `if` ou `while` em Python.
+   O gerador de código percorre as instruções IR e, para cada tipo de instrução, emite a linha de código Python equivalente. Para lidar com as estruturas de controle, o gerador de código emprega uma lógica que tenta identificar padrões de IR que correspondem a `if/else` e `while` loops. Por exemplo, uma sequência de `BIN_OP` (para a condição), `IF_FALSE` (para o salto condicional) e `GOTO` (para o salto incondicional) pode ser reconhecida e convertida em um `if` ou `while` em Python.
 
 **Componente:** `code_generator.py`
 
 ### 10.2. Mapeamento de IR para Python
 
-A seguir, alguns exemplos de como as instruções IR são mapeadas para o código Python:
+   Alguns exemplos de como as instruções IR são mapeadas para o código Python:
 
 | Instrução IR                               | Código Python Gerado (Exemplo)                                 |
 |---------------------------------------------|----------------------------------------------------------------| 
@@ -427,30 +434,32 @@ A seguir, alguns exemplos de como as instruções IR são mapeadas para o códig
 
 **Tratamento de Strings:**
 
-Um ponto importante na geração de código é o tratamento correto de literais de string, especialmente aqueles que contêm aspas. O `CodeGenerator` garante que as aspas dentro de strings sejam escapadas corretamente no código Python gerado, para evitar erros de sintaxe e preservar o conteúdo original da string. Por exemplo, uma string Charmeleon como `"Hello \"World\""` será corretamente transpilada para `"Hello \"World\""` em Python.
+   De uma forma geral, temos um ponto importante na geração de código é o tratamento correto de literais de string, especialmente aqueles que contêm aspas. O `CodeGenerator` garante que as aspas dentro de strings sejam escapadas corretamente no código Python gerado, para evitar erros de sintaxe e preservar o conteúdo original da string. 
+Um grande exemplo: uma string Charmeleon como `"Hello \"World\""` será corretamente transpilada para `"Hello \"World\""` em Python.
 
 **Reconhecimento de Estruturas de Controle:**
 
-O `CodeGenerator` analisa o fluxo de controle implícito nas instruções `IF_FALSE` e `GOTO` para reconstruir as estruturas `if/else` e `while` do Python. Isso envolve:
+   O `CodeGenerator` analisa o fluxo de controle implícito nas instruções `IF_FALSE` e `GOTO` para reconstruir as estruturas `if/else` e `while` do Python. Isso envolve:
 
 *   **Condicionais (`if/else`):** Uma instrução `IF_FALSE` seguida por um bloco de código e um `GOTO` para um rótulo de fim, e um rótulo `else` opcional, é traduzida para um `if` com um `else` correspondente.
 *   **Laços (`while`):** Um padrão de `LABEL` (início do loop), `BIN_OP` (condição), `IF_FALSE` (saída do loop), um bloco de código (corpo do loop) e um `GOTO` de volta para o `LABEL` inicial é reconhecido e transpilado para um `while` loop em Python.
 
 ### 10.3. Desafios e Abordagens
 
-A transpilação de IR de baixo nível para estruturas de alto nível em Python é um desafio complexo. A abordagem adotada tenta ser o mais estrutural possível, mas em alguns casos, especialmente com `GOTO`s arbitrários, pode ser necessário gerar código Python que simule um "program counter" ou use `break`/`continue` de forma mais explícita, embora a preferência seja por `if/else` e `while` diretos. A iteração contínua e os testes de ponta a ponta são essenciais para garantir a correção e a robustez dessa fase.
+   A transpilação de IR de baixo nível para estruturas de alto nível em Python é um desafio complexo. A abordagem adotada tenta ser o mais estrutural possível, mas em alguns casos, especialmente com `GOTO`s arbitrários, pode ser necessário gerar código Python que simule um "program counter" ou use `break`/`continue` de forma mais explícita, embora a preferência seja por `if/else` e `while` diretos. A iteração contínua e os testes de ponta a ponta são essenciais para garantir a correção e a robustez dessa fase.
 
-O resultado final desta fase é um arquivo `.py` que pode ser executado diretamente pelo interpretador Python, efetivamente compilando o programa Charmeleon para um formato amplamente utilizável.
+   O resultado final desta fase é um arquivo `.py` que pode ser executado diretamente pelo interpretador Python, efetivamente compilando o programa Charmeleon para um formato amplamente utilizável.
 
 
 
 ## 11. Desenvolvimento de Testes Abrangentes
 
-Para garantir a correção e a robustez do compilador Charmeleon, uma suíte de testes abrangente foi desenvolvida. Estes testes são de ponta a ponta, o que significa que eles exercitam todo o pipeline do compilador, desde a leitura do código-fonte Charmeleon até a geração do código Python final. O objetivo é verificar se cada fase do compilador funciona conforme o esperado e se o código Python gerado é semanticamente equivalente ao código Charmeleon original.
+   Para garantir a correção e a robustez do compilador Charmeleon, uma suíte de testes abrangente foi desenvolvida. Estes testes são de ponta a ponta, o que significa que eles exercitam todo o pipeline do compilador, desde a leitura do código-fonte Charmeleon até a geração do código Python final. O objetivo é verificar se cada fase do compilador funciona conforme o esperado e se o código Python gerado é semanticamente equivalente ao código Charmeleon original.
 
 ### 11.1. Estrutura dos Testes
 
-Os testes são implementados usando o módulo `unittest` do Python, o que permite uma estrutura organizada para os casos de teste. Cada caso de teste consiste em:
+   Os testes são implementados usando o módulo `unittest` do Python, o que permite uma estrutura organizada para os casos de teste.
+   Resumidamente, vai consistir do seguinte jeito:
 
 1.  **Código-fonte Charmeleon:** Uma string contendo um trecho de código na linguagem Charmeleon, projetado para testar uma funcionalidade específica (e.g., uma declaração `if-else`, um laço `for`, uma detecção de vulnerabilidade SAST).
 2.  **Execução do Compilador:** O código-fonte Charmeleon é salvo em um arquivo temporário e passado como entrada para o `ir_generator.py` (que atua como o ponto de entrada principal do compilador). A saída padrão (`stdout`) e a saída de erro padrão (`stderr`) do compilador são capturadas.
@@ -460,7 +469,7 @@ Os testes são implementados usando o módulo `unittest` do Python, o que permit
 
 ### 11.2. Casos de Teste Implementados
 
-A suíte de testes atual inclui os seguintes cenários:
+A suíte de testes atual tem como cenários:
 
 *   **`test_if_else_statement`:** Verifica a correta transpilação de declarações `if-else` para suas equivalentes em Python, incluindo a condição e os blocos `true` e `false`.
 *   **`test_for_loop`:** Assegura que os laços `for` (estilo C) sejam corretamente convertidos em estruturas `while` em Python, com inicialização, condição e atualização adequadas.
@@ -470,20 +479,20 @@ A suíte de testes atual inclui os seguintes cenários:
 
 ### 11.3. Importância dos Testes
 
-Os testes de ponta a ponta são cruciais por várias razões:
+   Os testes de ponta a ponta são cruciais por várias razões:
 
 *   **Validação Integrada:** Eles verificam a interação correta entre todas as fases do compilador, garantindo que as saídas de uma fase sejam entradas válidas para a próxima.
 *   **Detecção de Regressões:** Ao serem executados regularmente, os testes ajudam a identificar rapidamente quaisquer regressões (bugs introduzidos por novas alterações) no compilador.
 *   **Garantia de Qualidade:** Fornecem uma garantia de que o compilador está produzindo código Python funcional e seguro, que se comporta como o esperado pelo código Charmeleon original.
 *   **Suporte ao Desenvolvimento:** Permitem que os desenvolvedores façam alterações e refatorações com confiança, sabendo que a suíte de testes alertará sobre quaisquer problemas introduzidos.
 
-O sucesso de todos os testes indica um alto nível de confiança na correção e na funcionalidade do compilador Charmeleon, tanto em termos de transpilação quanto de detecção de segurança e otimização.
+   O sucesso de todos os testes indica um alto nível de confiança na correção e na funcionalidade do compilador Charmeleon, tanto em termos de transpilação quanto de detecção de segurança e otimização.
 
 
 
 ## 12. Conclusão
 
-O desenvolvimento do compilador Charmeleon representou um esforço significativo na criação de uma ferramenta robusta e multifacetada para a transpilação de código-fonte. Desde a idealização de uma linguagem simples e intuitiva, inspirada em Python e C#, até a implementação de um pipeline de compilação completo, cada fase foi cuidadosamente projetada para garantir a correção, a eficiência e a segurança do código gerado.
+   O desenvolvimento do compilador Charmeleon representou um esforço significativo na criação de uma ferramenta robusta e multifacetada para a transpilação de código-fonte. Desde a idealização de uma linguagem simples e intuitiva, inspirada em Python e C#, até a implementação de um pipeline de compilação completo, cada fase foi cuidadosamente projetada para garantir a correção, a eficiência e a segurança do código gerado.
 
 As principais conquistas deste projeto incluem:
 
@@ -494,7 +503,7 @@ As principais conquistas deste projeto incluem:
 *   **Transpilação para Python:** A habilidade de converter o código Charmeleon em código Python executável, aproveitando a vasta ecossistema e a portabilidade do Python.
 *   **Testes Abrangentes:** A suíte de testes de ponta a ponta, que valida a funcionalidade de cada componente e a integração do compilador como um todo, garantindo a qualidade e a confiabilidade do sistema.
 
-Embora o compilador Charmeleon já seja uma ferramenta funcional e eficaz, há diversas oportunidades para futuras melhorias e expansões. Estas podem incluir a adição de recursos mais avançados à linguagem (como classes, módulos, tratamento de exceções), a implementação de otimizações adicionais, a expansão das regras de SAST para cobrir um espectro mais amplo de vulnerabilidades, e a possibilidade de gerar código para outras plataformas ou linguagens (e.g., JavaScript para execução direta no navegador).
+   Embora o compilador Charmeleon já seja uma ferramenta funcional e eficaz, há diversas oportunidades para futuras melhorias e expansões. Estas podem incluir a adição de recursos mais avançados à linguagem (como classes, módulos, tratamento de exceções), a implementação de otimizações adicionais, a expansão das regras de SAST para cobrir um espectro mais amplo de vulnerabilidades, e a possibilidade de gerar código para outras plataformas ou linguagens (e.g., JavaScript para execução direta no navegador).
 
-Em suma, o compilador Charmeleon demonstra a viabilidade de criar linguagens de programação customizadas com foco em domínios específicos, ao mesmo tempo em que incorpora práticas de segurança e otimização. Este projeto serve como uma base sólida para futuras inovações no campo de linguagens e compiladores, e esperamos que ele seja uma ferramenta valiosa para a comunidade de desenvolvimento.
+   De forma breve, o compilador Charmeleon demonstra a viabilidade de criar linguagens de programação customizadas com foco em domínios específicos, ao mesmo tempo em que incorpora práticas de segurança e otimização. Este projeto serve como uma base sólida para futuras inovações no campo de linguagens e compiladores, e esperamos que ele seja uma ferramenta valiosa para a comunidade de desenvolvimento.
 
